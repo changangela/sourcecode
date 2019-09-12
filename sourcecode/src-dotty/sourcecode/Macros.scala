@@ -217,9 +217,9 @@ object Macros {
       if (filter(current)) {
 
         val chunk = current match {
-          case IsValDefSymbol(_) => Chunk.ValVarLzyDef
-          case IsDefDefSymbol(_) => Chunk.ValVarLzyDef
-          case _ => Chunk.PkgObj
+          case IsValDefSymbol(_) => Chunk.ValVarLzyDef.apply
+          case IsDefDefSymbol(_) => Chunk.ValVarLzyDef.apply
+          case _ => Chunk.PkgObj.apply
         }
 
         // TODO
