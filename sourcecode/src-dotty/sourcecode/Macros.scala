@@ -109,9 +109,9 @@ object Macros {
     val owner = actualOwner(qctx)(rootContext.owner)
     val fullName =
       owner.fullName.trim
-        .split("\\.", -1)
+        .split("\\.", -1).map(_.nn)
         .filterNot(Util.isSyntheticName)
-        .map(_.split("_\\$", -1).dropWhile(_.isEmpty).mkString.stripSuffix("$")) // meh
+        .map(_.split("_\\$", -1).map(_.nn).dropWhile(_.isEmpty).mkString.stripSuffix("$")) // meh
         .mkString(".")
     '{FullName(${Expr(fullName)})}
   }
@@ -120,7 +120,7 @@ object Macros {
     import qctx.tasty.{_, given}
     val owner = rootContext.owner
     val fullName = owner.fullName.trim
-      .split("\\.", -1)
+      .split("\\.", -1).map(_.nn)
       .map(_.stripPrefix("_$").stripSuffix("$")) // meh
       .map(adjustName)
       .mkString(".")
