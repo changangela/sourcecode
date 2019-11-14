@@ -35,6 +35,10 @@ lazy val sourcecode = (project in file ("sourcecode"))
     libraryDependencies ++= {
       if (isDotty.value) Nil else macroDependencies(scalaVersion.value)
     },
+    scalacOptions ++= Seq(
+      "-Yexplicit-nulls",
+      "-Yjava-interop-dont-nullify-outermost"
+    ),
     test in Test := (run in Test).toTask("").value,
     unmanagedSourceDirectories in Compile ++= {
       Seq(baseDirectory.value / "src") ++ (
